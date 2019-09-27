@@ -30,8 +30,20 @@ function queryallproducts() {
                 type:"input",
                 message:"How many units of the item would you like?"
             }]);
-    });
+    })
+        .then(function(answer) {
+            var query = "SELECT * FROM products where ID=?" 
+            connection.query(query, { product: answer.itemID }, function(err, res) {
+                if (err) throw err;
+                if (res.length === 0) {
+                    console.log("Invalid product number")
+                };
+            });
+        });
+
 }
+
+
 
 
 
