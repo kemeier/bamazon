@@ -28,3 +28,5 @@ If not, the app logs a phrase to let the customer know and then prevents the ord
 If your store does have enough of the product, the customer's order is fulfilled.
 
 At this point the SQL database is updated to reflect the remaining quantity. Once the update goes through, the customer sees the total cost of their purchase.
+
+![bamazonpicture](/Users/kellers/Pictures/Photos Library.photoslibrary/resources/proxies/derivatives/00/00/15/UNADJUSTEDNONRAW_thumb_15.jpg)
