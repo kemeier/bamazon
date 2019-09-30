@@ -21,6 +21,7 @@ function queryallproducts() {
             console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].price);
         }
         console.log("-----------------------------------");
+
         inquirer.prompt([{
             name: "itemID",
             type: "input",
@@ -32,7 +33,7 @@ function queryallproducts() {
         }])
           
                 .then(function (answer) {
-                    let chosenItem;
+                    var chosenItem;
                     for (var i = 0; i < res.length; i++)    {
                         if (res[i].item_id === answer.itemID) {
                             chosenItem = res[i];
@@ -47,7 +48,13 @@ function queryallproducts() {
                     connection.query("UPDATE products SET ? WHERE ?", 
                     [{ stock_quantity: answer.unitAmount}])
                     }
-                    
+                    console.log("hello");
+                    var newQuantity = res[0].stock_quantity - unitAmount;
+                    connection.query(
+                        "UPDATE products SET stock_quantity = " + newQuantity + " WHERE itemID = " + res[0].item_id, function(err, resUpdate){
+                            if (err) throw err;
+                        }
+                    )
                 });
                 
             });
