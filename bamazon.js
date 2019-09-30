@@ -30,20 +30,44 @@ function queryallproducts() {
             type: "input",
             message: "How many units of the item would you like?"
         }])
-            .then(function (answer) {
-                var query = "SELECT * FROM products where ?"
-                connection.query(query, { item_id: answer.itemID }, function (err, res) {
-                    if (err) throw err;
-                    if (res.length === 0) {
-                        console.log("Invalid product number")
-                    };
+          
+                .then(function (answer) {
+                    let chosenItem;
+                    for (var i = 0; i < res.length; i++)    {
+                        if (res[i].item_id === answer.itemID) {
+                            chosenItem = res[i];
+                        }
+                    }
+                
+                    
+                    if (chosenItem.stock_quantity <= parseInt(answer.unitAmount)) {
+                    console.log ("Not enough in stock");}
+                    else {
                     console.log("Yay!");
-                    connection.end();
+                    connection.query("UPDATE products SET ? WHERE ?", 
+                    [{ stock_quantity: answer.unitAmount}])
+                    }
+                    
                 });
+                
             });
-    });
+            
+    
 }
-
+//}).then(function(answer){
+    //if(chosenItem.highestbid < parseInt(answer.bid)){
+        //connection.query("UPDATE auctions SET ? WHERE ?",[{
+            //highestbid: answer.bid
+       // },{
+            //id:chosenItem.id
+       // }], function(err,res){
+           // console.log("Bid successfully placed!");
+            //start();
+       // });
+     // } else {
+          //console.log("Your bid was too low.  Try again...");
+          //start();
+      //}
 
 
 
