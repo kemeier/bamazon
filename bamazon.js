@@ -35,24 +35,28 @@ function queryallproducts() {
                 .then(function (answer) {
                     var chosenItem;
                     for (var i = 0; i < res.length; i++)    {
-                        if (res[i].item_id === answer.itemID) {
+                        if (res[i].item_id == answer.itemID) {
                             chosenItem = res[i];
                         }
                     }
-                
-                    
                     if (chosenItem.stock_quantity <= parseInt(answer.unitAmount)) {
                     console.log ("Not enough in stock");}
                     else {
                     console.log("Yay!");
+                    // UPDATE products SET stock_quantity = (chosenItem.stock_quantity - answer.unitAmount) WHERE itemID = chosenItem.itemID
                     connection.query("UPDATE products SET ? WHERE ?", 
                     [{ stock_quantity: answer.unitAmount}])
-                    }
-                    console.log("hello");
-                    var newQuantity = res[0].stock_quantity - unitAmount;
+                    console.log("there are " + answer.unitAmount + " left in stock");
+                    } 
+                    
+                    var cost = res[1].price * answer.unitAmount;
+                    console.log("\n Your cost is $ " + cost);
+                   
+                    var newQuantity = res[0].stock_quantity - answer.unitAmount;
                     connection.query(
-                        "UPDATE products SET stock_quantity = " + newQuantity + " WHERE itemID = " + res[0].item_id, function(err, resUpdate){
+                        "UPDATE products SET stock_quantity = " + newQuantity + " WHERE id = " + res[0].id, function(err, res){
                             if (err) throw err;
+                            console.log("Your order is complete.")
                         }
                     )
                 });
