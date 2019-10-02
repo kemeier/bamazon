@@ -42,7 +42,7 @@ function queryallproducts() {
                     if (chosenItem.stock_quantity <= parseInt(answer.unitAmount)) {
                     console.log ("Not enough in stock");}
                     else {
-                    console.log("Yay!");
+                    console.log("In stock");
                     // UPDATE products SET stock_quantity = (chosenItem.stock_quantity - answer.unitAmount) WHERE itemID = chosenItem.itemID
                     connection.query("UPDATE products SET ? WHERE ?", 
                     [{ stock_quantity: answer.unitAmount}])
@@ -65,24 +65,3 @@ function queryallproducts() {
             
     
 }
-//}).then(function(answer){
-    //if(chosenItem.highestbid < parseInt(answer.bid)){
-        //connection.query("UPDATE auctions SET ? WHERE ?",[{
-            //highestbid: answer.bid
-       // },{
-            //id:chosenItem.id
-       // }], function(err,res){
-           // console.log("Bid successfully placed!");
-            //start();
-       // });
-     // } else {
-          //console.log("Your bid was too low.  Try again...");
-          //start();
-      //}
-
-
-
-
-
-
-
