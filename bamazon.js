@@ -43,7 +43,7 @@ function queryallproducts() {
                     console.log ("Not enough in stock");}
                     else {
                     console.log("In stock");
-                    // UPDATE products SET stock_quantity = (chosenItem.stock_quantity - answer.unitAmount) WHERE itemID = chosenItem.itemID
+                  
                     connection.query("UPDATE products SET ? WHERE ?", 
                     [{ stock_quantity: answer.unitAmount}])
                     console.log("there are " + answer.unitAmount + " left in stock");
